@@ -198,7 +198,7 @@ class File {
     }
 
     getEvents() {
-        return this.fileFormat.getMultipleKeysMultipleValues(this.file, 
+        return this.fileFormat.getMultipleKeysMultipleValues(this, 
             ['eventNumber', 'eventGender', 'distance', 'stroke', 'ageLower', 'ageUpper'], ['label']);
     }
 }

@@ -4,7 +4,6 @@ import Season from "./Season";
 import League from "./League";
 import MeetPlan from "./MeetPlan";
 import File from "@files/File";
-import S from "@src/logo/shapes";
 import User from "./User";
 import MeetConfirmation from "./MeetConfirmation";
 
@@ -16,7 +15,6 @@ const classMapping = {
   'MeetPlan': MeetPlan,
   'MeetConfirmation': MeetConfirmation,
   'File': File,
-  'Logo': S,
   '_User': User
 };
 

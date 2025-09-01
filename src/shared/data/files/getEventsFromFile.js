@@ -1,10 +1,10 @@
 import { STROKES } from "@models/LeagueData";
 import { EventsTemplate } from "@models/MeetTypes/EventsTemplate";
-import { getFileFormat } from "@files/FileFormat";
 import { MCSL_MEETS } from "@models/MeetTypes/MeetType";
 
 function getEventsFromFile(file) {
     const eventData = file.getEvents();
+    const fileFormat = file.getFormat();
     let eventsMap = new Map(); // Use a Map for quick lookups
     let maxEventNumber = 0; // Start with 0 to calculate the maximum event number
 

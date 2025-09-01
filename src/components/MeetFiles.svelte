@@ -3,11 +3,12 @@
     import Tile from "@shared/components/Tile.svelte";
     import Team from "@models/Team";
     import Discrepancy from "@models/Discrepancy";
-    import UploadFilesButton from "@streamline/components/UploadFilesButton.svelte";
+    import UploadFilesButton from "@shared/components/UploadFilesButton.svelte";
     import { getTeamsFromFile, meetInfoFromFile } from "@files/integrateFile";
     import { getEventsFromFile } from "@files/getEventsFromFile";
     import Discrepancies from "./Discrepancies.svelte";
     import { MEET } from '@src/stores';
+    import File from "@src/shared/data/files/File";
 
     const size = { width: "20rem", height: "auto" };
 
@@ -18,7 +19,9 @@
     $: meet = $MEET;
 
     function onFilesSelected(files){
-        files.forEach(file => {
+        files.forEach(f => {
+            const file = new File(f);
+            console.log(file);
             let fileTeams = getTeamsFromFile(file);
             getEventsFromFile(file);
             fileTeams.forEach(team => {
