@@ -1,15 +1,13 @@
 <script>
   import { onMount } from 'svelte';
-  import initializeParse from '@shared/data/initializeParse';
-  import { userStore, viewStore, MEET } from '@src/stores';
-  import { loadParseObjectsById } from '@shared/data/LoadParseObjects';
+  import initializeParse from '@src/shared/data/initializeParse';
+  import { loadParseObjectsById } from '@src/shared/data/LoadParseObjects';
 
-
-  import NavbarLayout from '@shared/components/NavbarLayout.svelte';
-  import MeetFiles from './components/MeetFiles.svelte';
-  import MeetSettings from './components/MeetSettings.svelte';
-  import RunMeet from './components/RunMeet.svelte';
-  import Meet from '@models/Meet';
+  import NavbarLayout from '@src/shared/components/NavbarLayout.svelte';
+  import MeetFiles from '@src/components/MeetFiles.svelte';
+  import MeetSettings from '@src/components/MeetSettings.svelte';
+  import RunMeet from '@src/components/RunMeet.svelte';
+  import Meet from '@shared/models/Meet';
 
   let loading = true;
 
