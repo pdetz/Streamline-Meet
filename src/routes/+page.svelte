@@ -1,5 +1,4 @@
 <script>
-    import Streamline from '@streamline/streamline-app.svelte';
+    import App from '@better-meet/better-meet-app.svelte';
 </script>
-  
-<Streamline />
+<App />
