@@ -1,0 +1,56 @@
+table.list {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+table.list.stripe{
+    width: 100%;
+    font-size: 0.8125rem;
+}
+
+table.list td, table.list th {
+    border: 1px solid var(--bg-color-1);
+    border-spacing: 0;
+    margin: 0;
+    padding: 2px;
+    vertical-align: middle;
+    background:none;
+}
+table.list.stripe td, table.list.stripe th {
+    border-color: #fff; 
+    text-align: center;
+}
+table.list.stripe thead td, table.list.stripe thead th {
+    font-weight: bold;
+    background-color: var(--stripe-header);
+}
+
+table.list thead td, table.list thead th {
+    font-weight: normal;
+    background-color: var(--bg-color-hl);
+    text-align: center;
+}
+
+table.list tr:nth-of-type(even) {
+    background-color: var(--bg-color-2);
+}
+table.list.stripe tr:nth-of-type(even) {
+    background-color: var(--stripe-stripe);
+    transition: background-color 0.5s ease-in-out;
+}
+
+@media print {
+    table.list {
+        page-break-inside: avoid;
+        width: 100%;
+        font-size: 10pt;
+    }
+
+    table.list td.right{
+        text-align: right;
+        padding-left: 8px;
+    }
+
+    table.list td.name {
+        padding-left: 8px;
+    }
+}

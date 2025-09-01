@@ -1,0 +1,75 @@
+@keyframes borderFlash {
+  0% { border-color: #fff; /* Or your button's default border color */ }
+  20%{ border-color: transparent; /* Or your button's default border color */ }
+  30% { border-color: #fff; /* Or your button's default border color */ }
+}
+
+button.sb {
+    background-color: var(--bg-color-1);
+    color: var(--text-color-1);
+    border: 2px solid transparent; /* var(--bg-color-3);*/
+    padding: 0.5em; /* Padding now in rem units */
+
+    font-size: 1em; /* Font-size in rem units, adjust as needed */
+    transition-duration: 0.2s;
+  }
+  button.sb.inv {
+    background-color: transparent;
+  }
+  
+  button.sb:hover {
+    /*box-shadow: 0 0 0.3rem 0.08rem var(--border-color-hl);*/
+    border-color: var(--border-color-hl);
+
+    /*background-color: var(--bg-color-hl);*/
+  }
+
+  button.sb:active {
+    animation: borderFlash 0.5s ease-in-out;
+    transition-duration: 0s;
+  }
+
+  button.sb.selected {
+    /*border-color: var(--border-color-hl);*/
+    background-color: var(--sel-color-2);
+    color: var(--sel-text-color);
+  }
+
+  button.sb.selected.bold {
+    font-weight: bold;
+  }
+
+  button.sb.selected:hover {
+    /*background-color: var(--sel-color-2);*/
+    border-color: var(--border-color-hl);
+  }
+
+  button.sb.small {
+    padding: 0.2em 0.5em; /* Smaller padding for small buttons */
+    font-size: 0.8em; /* Smaller font size for small buttons */
+  }
+
+.my_team button.sb {
+  color: var(--team-color);
+}
+.my_team .sb.selected {
+  color: var(--sel-text-color);
+  background-color: var(--team-color);
+}
+
+button.sb.tool {
+  background-color: #028;
+  color: #fff;
+  padding: 0.2em 1.5em;
+  transition-duration: 0.5s;
+}
+button.tool:hover {
+  /*background-image: linear-gradient(to top right, #004, #6af); /* Starts green at the bottom left and goes to yellow at the top right */
+  background-color: #04f;
+}
+
+button {
+  border-radius: 0.3rem;
+  cursor: pointer;
+  color: inherit;
+}

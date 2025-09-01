@@ -1,0 +1,53 @@
+{
+  "name": "swim-app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start:server": "node ./src/shared/data/fileServer.js",
+    "start:app": "npm run dev",
+    "start:email": "node ./src/server/src/index.js",
+    "start": "concurrently \"npm run start:server\" \"npm run start:email\" \"npm run dev\"",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
+    "commit": "cz"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@sveltejs/adapter-vercel": "^5.5.2",
+    "@sveltejs/kit": "^2.0.0",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "commitizen": "^4.3.1",
+    "concurrently": "^8.2.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "nodemon": "^3.1.0",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.4.11",
+    "vite-plugin-mkcert": "^1.17.8"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "eventemitter3": "^5.0.1",
+    "express": "^4.19.2",
+    "jsdom": "^24.0.0",
+    "nodemailer": "^7.0.3",
+    "parse": "^5.1.0",
+    "puppeteer": "^22.10.1",
+    "sib-api-v3-sdk": "^8.5.0"
+  },
+  "engines": {
+    "node": ">=20 <=22"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

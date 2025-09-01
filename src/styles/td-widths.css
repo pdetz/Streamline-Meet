@@ -1,0 +1,120 @@
+/* Standard td widths */
+table.list thead.center tr td {
+    text-align: center;
+    font-size: 0.9em;
+}
+table.list thead.normal tr td {
+    font-weight: normal;
+}
+table.list td.name, table.list th.name {
+    width: 16em;
+    padding-left: 0.25em;
+    overflow: hidden;
+    white-space: nowrap; /* Prevent text from wrapping */
+    text-align: left;
+}
+
+table.list td.athletes {
+    width: 16em;
+    text-align: left;
+    padding-left: 0.25em;
+}
+
+table.list.stripe td.athletes {
+    min-width: 11em;
+    max-width: 11em;
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden;    /* Hide content that overflows */
+}
+
+table.list td.team, table.list th.team {
+    width: 4em;
+    text-align: center;
+}
+
+table.list.stripe td.team {
+    width: 3em;
+}
+
+table.list td.time {
+    padding: 0 0.5em;
+    width: 5.5em;
+    text-align: right;
+}
+
+table.list td.place {
+    text-align: right;
+    padding-right: 0.3em;
+    width: 1.5em;
+}
+
+table.list td.points {
+    width: 3em;
+    padding-right: 0.75em;
+    text-align: right;
+}
+
+td.controls {
+    width: 5em;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+/* Relay planner tds */
+table.list td.time.relay-planner {
+    width: 7.5em;
+}
+table.list td.pad-right {
+    padding-right: 1.6em;
+}
+table.list td.athletes.relay-planner {
+    min-width: 18em;
+    max-width: 18em;
+}
+
+@media print {
+    table.list.stripe td.name {
+        width: 256px;
+        padding-left: 8px;
+    }
+    
+    table.stripe td.athletes {
+      width: 170px;
+      padding-left: 4px;
+    }
+
+    table.stripe thead {
+        display: table-row-group; /* Or another display value like block */
+    }
+
+    table.stripe tbody>tr:nth-child(odd)>td {
+        background-color: #fff;
+    }
+
+    table.stripe tbody>tr:nth-child(even) {
+        background-color: var(--stripe-stripe);
+    }
+
+    table.stripe td {
+        padding: 1px;
+    }
+
+    table.stripe td.team {
+      width: 40px;
+    }
+    
+    table.stripe td.time {
+      padding: 0 4px;
+      width: 60px;
+    }
+
+    table.stripe td.place {
+      padding-right: 2px;
+      width: 14px;
+    }
+
+    table.stripe td.points {
+      width: 20px;
+      padding-right: 5px;
+    }
+}

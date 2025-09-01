@@ -1,0 +1,38 @@
+@media print {
+    /* Hide all elements by default */
+    body * {
+        visibility: hidden;
+    }
+
+    /* Show only the Page element and its contents */
+    .printable-page, .printable-page * {
+        visibility: visible;
+    }
+
+    /* Additional styles for the Page element */
+    .printable-page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-family: Arial, sans-serif;
+        background-color: none !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        transform: none !important;
+    }
+
+    /* Specific styles for input.title */
+    input.title {
+        width: 100%;
+        background: none;
+        outline: none;
+        border: none;
+        text-align: center;
+        padding: 0;
+        font-size: 10pt;
+        font-weight: bold;
+    }
+}

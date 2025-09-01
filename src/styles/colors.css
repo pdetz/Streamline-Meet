@@ -1,0 +1,76 @@
+:root {
+    --FR: #8df;
+    --BK: #af8;
+    --BR: #ff8;
+    --FL: #f88;
+    --IM: #c8f;
+    --FRL: #8ff;
+    --MRL: #daf;
+    --blue: #04f, #6af 70%, #adf 100%;
+    --red: #ff0, #f80 40%, #f00 90%, #b00 100%;
+    --bg-color-1: #000;
+    --bg-color-2: #111;
+    --bg-color-3: #222;
+    --bg-color-hl: #444;
+    --border-color: #444;
+    --border-color-hl: #aaa;
+    --text-color-1: #fff;
+    --sel-color-1: #6b3;
+    --sel-color-2: #888;
+    --sel-text-color: #000;
+    --team-color: #6b3;
+}
+@keyframes borderFlash {
+    0% { border-color: #fff; /* Or your button's default border color */ }
+    10% { border-color: transparent; /* Or your button's default border color */ }
+    20% { border-color: #fff; /* Or your button's default border color */ }
+  }
+.stroke {
+    transition: 0.5s ease-in;
+}
+button.stroke:active {
+    animation: borderFlash 0.5s ease-in-out;
+    transition-duration: 0s;
+}
+.stroke.FR.selected {
+    background-color: var(--FR);
+}
+.stroke.FR:hover {
+    border-color: var(--FR);
+}
+.stroke.BK.selected {
+    background-color: var(--BK);
+}
+.stroke.BK:hover {
+    border-color: var(--BK);
+}
+.stroke.BR.selected {
+    background-color: var(--BR);
+}
+.stroke.BR:hover {
+    border-color: var(--BR);
+}
+.stroke.FL.selected {
+    background-color: var(--FL);
+}
+.stroke.FL:hover {
+    border-color: var(--FL);
+}
+.stroke.IM.selected {
+    background-color: var(--IM);
+}
+.stroke.IM:hover {
+    border-color: var(--IM);
+}
+.stroke.FRL.selected {
+    background-color: var(--FRL);
+}
+.stroke.FRL:hover {
+    border-color: var(--FRL);
+}
+.stroke.MRL.selected {
+    background-color: var(--MRL);
+}
+.stroke.MRL:hover {
+    border-color: var(--MRL);
+}
