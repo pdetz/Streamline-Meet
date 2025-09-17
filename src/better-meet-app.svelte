@@ -7,6 +7,7 @@
   import MeetSettings from '@src/components/MeetSettings.svelte';
   import RunMeet from '@src/components/RunMeet.svelte';
   import Meet from '@shared/models/Meet';
+  import EditEvents from '@src/components/EditEvents/EditEvents.svelte';
   import { MEET, viewStore } from '@src/stores';
 
   let loading = true;
@@ -29,6 +30,7 @@
         { name: 'Meet Files', component: MeetFiles, props: { meet: $MEET } },
         { name: 'Meet Settings', component: MeetSettings, props: { meet: $MEET } },
         { name: 'Run Meet', component: RunMeet, props: { meet: $MEET } },
+        { name: 'Edit Events', component: EditEvents, props: {meet: $MEET } }
       ];
       document.title = newMeet.name || "Better Meet App";
     } catch (error) {
