@@ -146,7 +146,7 @@ class Meet {
   }
 
   createAgeGroupsForMeet(meetType) {
-    //console.log(meetType);
+    console.log(meetType);
     return meetType.ageGroups.map((ageGroup, index) => {
         // Clone the base ageGroup object
         const clonedAgeGroup = new AgeGroup({ ...ageGroup, index, genders: meetType.genders});

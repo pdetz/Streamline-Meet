@@ -1,10 +1,5 @@
 <script>
-    export let options;
-    export let selected;
-    export let select;
-    export let text;
-    export let css='bold';
-
+    let { options, selected, select, text, css='bold' } = $props();
 </script>
 
 {#each options as option}

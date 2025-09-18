@@ -13,6 +13,7 @@ const MCSL_DIVISIONALS_EVENTS_TEMPLATE = new EventsTemplate(MCSL_DIVISIONALS_EVE
 const IS_MEET_EVENTS_TEMPLATE = new EventsTemplate(IS_MEET_EVENTS);
 const RELAY_CARNIVAL_EVENTS_TEMPLATE = new EventsTemplate(RELAY_CARNIVAL_EVENTS);
 const PRACTICE_TIMES_EVENTS_TEMPLATE = new EventsTemplate(PRACTICE_TIMES_EVENTS);
+const BLANK_MEET_EVENTS_TEMPLATE = new EventsTemplate( { events: [{ n: 1, gender: "X", ages: [0, 109], distance: 50, stroke: 1 }] } );
 
 class MeetType {
   constructor(meetType) {
@@ -75,7 +76,7 @@ const PracticeTimes = new MeetType({
 
 const BlankMeet = new MeetType({
     name: 'New Meet Type',
-    eventsTemplate: { events: []},
+    eventsTemplate: BLANK_MEET_EVENTS_TEMPLATE,
     swimUps: 'Unlimited'
 });
 

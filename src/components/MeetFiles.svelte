@@ -1,5 +1,4 @@
 <script>
-    export let meet;
     import Tile from "@shared/components/Tile.svelte";
     import Team from "@models/Team";
     import Discrepancy from "@models/Discrepancy";
@@ -7,8 +6,8 @@
     import { getTeamsFromFile, meetInfoFromFile } from "@files/integrateFile";
     import { getEventsFromFile } from "@files/getEventsFromFile";
     import Discrepancies from "./Discrepancies.svelte";
-    import { MEET } from '@src/stores';
     import File from "@src/shared/data/files/File";
+    import { appState } from '@src/state/state.svelte.js';
 
     const size = { width: "20rem", height: "auto" };
 
@@ -16,7 +15,7 @@
     let discrepancy = false;
     let meetInfos;
 
-    $: meet = $MEET;
+    let meet = $derived(appState.meet);
 
     function onFilesSelected(files){
         files.forEach(f => {

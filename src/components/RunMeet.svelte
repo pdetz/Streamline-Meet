@@ -1,13 +1,10 @@
 <script>
   import ScrollBox from '@shared/components/ScrollBox.svelte';
-    import SelectButtons from '@src/shared/components/SelectButtons.svelte';
-    export let meet;
+  import SelectButtons from '@src/shared/components/SelectButtons.svelte';
+  import { appState } from '@src/state/state.svelte.js';
 
-    let selectedEvent = meet.events[0];
-
-    function selectEvent(event) {
-        selectedEvent = event;
-    }
+  let meet = $derived(appState.meet);
+  let selectedEvent = $state(meet.events[0]);
 
 </script>
 
@@ -18,7 +15,7 @@
         options={meet.events}
         text = {(event) => event.name}
         selected = {selectedEvent}
-        select = {selectEvent}
+        select = {(event) => selectedEvent = event}
     />
 
   </ScrollBox>
@@ -26,6 +23,7 @@
   
   <div class="main-content">
         Heat, lane, and swimmer UI here
+        {selectedEvent.name}
   </div>
 </div>
 

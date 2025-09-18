@@ -1,19 +1,19 @@
 <script>
   export let meet;
 
-  import { selectedEventStore } from '@src/stores';
   import ScrollBox from '@shared/components/ScrollBox.svelte';
   import SelectButtons from '@shared/components/SelectButtons.svelte';
-    import MeetProgramEvent from './MeetProgramEvent.svelte';
+  import MeetProgramEvent from './MeetProgramEvent.svelte';
+  import { appState } from '@src/state/state.svelte.js';
 
   $: if (meet) {
     if(!meet.seeded) meet.seed();
   }
 
-  let selectedEvent;
-  // Function to update the selected event in the store
+  let selectedEvent = $derived(appState.selectedEvent);
+  
   function selectEvent(event) {
-    selectedEventStore.set(event);
+    appState.selectedEvent = event;
   }
 
   function eventButton(event) {
@@ -27,7 +27,7 @@
     <div class="button-column">
       <SelectButtons
         options={meet.events}
-        selected={$selectedEvent}
+        selected={selectedEvent}
         select={selectEvent}
         text={(event) => eventButton(event)}
       />
