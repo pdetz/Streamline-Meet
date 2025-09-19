@@ -5,6 +5,9 @@
     import { STROKES } from '@src/shared/models/LeagueData';
     import DropDownMenu from '@src/shared/components/DropDownMenu.svelte';
     import { updateEventInMeet } from '@src/state/state.svelte.js';
+    import Meet from '@src/shared/models/Meet';
+
+    let strokes = $derived(STATE.meet.type.strokes.slice(1));
 
     function updateStroke(stroke) {
         console.log('updating stroke', stroke);
@@ -25,19 +28,14 @@
         {currentEvent.name}
     </div>
     <div class='controls'>
-        <DropDownMenu>
-            <div slot=menu-button>
-                Choose Stroke v
-            </div>
-            <div class='strokes'>
-                {#each STATE.meet.type.strokes as stroke}
-                    <button onclick={() => updateStroke(stroke)}
-                        class={'sb stroke ' + stroke.abbr + (currentEvent.stroke.abbr === stroke.abbr ? ' selected' : '')}>
-                        {stroke.name}
-                    </button>
-                {/each}
-            </div>
-        </DropDownMenu>
+        <div class='strokes'>
+            {#each strokes as stroke}
+                <button onclick={() => updateStroke(stroke)}
+                    class={'sb stroke ' + stroke.abbr + (currentEvent.stroke.abbr === stroke.abbr ? ' selected' : '')}>
+                    {stroke.abbr}
+                </button>
+            {/each}
+        </div>
         <div class='genders'>
             {#each Object.keys(STATE.meet.type.genders) as genderKey}
                 <button onclick={() => updateGender(genderKey)}
@@ -60,9 +58,9 @@
     }
     div.strokes {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         font-size: 0.8rem;
-        gap: 0rem;
+        gap: 0.2rem;
         flex-wrap: wrap;
     }
 </style>

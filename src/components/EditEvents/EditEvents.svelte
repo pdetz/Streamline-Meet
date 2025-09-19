@@ -3,26 +3,26 @@
     import { STATE, addEventToMeet } from '@src/state/state.svelte.js';
     import EventEditor from './EventEditor.svelte';
 
-    let meet = $derived(STATE.meet);
+    let meet = $state(STATE.meet);
     let events = $derived(STATE.meet.events);
-    let name = $derived(STATE.meet.name);
+    let lastEvent = $derived(events[events.length - 1]);
 
-    function addEvent(eventData=STATE.meet.events[STATE.meet.events.length - 1]) {
+    function addEvent(eventData=lastEvent) {
         console.log("Adding event", eventData);
         let newEvent = new Event({
             ...eventData,
             n: (eventData?.n || 0) + 1,
         });
         addEventToMeet(newEvent);
-        events = STATE.meet.events; // Trigger reactivity
+        events = [...events, newEvent];
         console.log(STATE.meet.events, events);
     }
 </script>
 
 <div>
-    {name}
+    {STATE.meet.name}
     <div class = 'events'>
-        {#each events as event (event.key)}
+        {#each events as event}
             <EventEditor {event} />
         {/each}
         <button class = 'sb tool new-event'
