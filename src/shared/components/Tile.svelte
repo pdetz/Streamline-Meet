@@ -19,7 +19,6 @@
         flex-direction: column;
         text-align: center;
         padding: 0;
-        overflow: hidden; /* Add this line */
         border: 1px solid var(--border-color);
         transition: 0.25s;
     }
@@ -31,8 +30,6 @@
     }
     .tile-content {
         flex: 1;
-        overflow-x: hidden;
-        overflow-y: auto;
         background-color: var(--bg-color-1);
         padding: 0.5rem;
         display: flex;

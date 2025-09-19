@@ -1,21 +1,20 @@
 <script>
     import Event from '@shared/models/Event';
-    import { STATE } from '@src/state/state.svelte.js';
+    import { STATE, addEventToMeet } from '@src/state/state.svelte.js';
     import EventEditor from './EventEditor.svelte';
-    import { StatusEnum } from 'sib-api-v3-sdk/src/model/GetCampaignOverview';
 
     let meet = $derived(STATE.meet);
-    let events = $derived.by(() => {
-        console.log("Deriving events from events:", STATE.meet.events);
-        return STATE.meet.events
-    });
-    let name = $derived.by(() => STATE.meet.name);
+    let events = $derived(STATE.meet.events);
+    let name = $derived(STATE.meet.name);
 
     function addEvent(eventData=STATE.meet.events[STATE.meet.events.length - 1]) {
         console.log("Adding event", eventData);
-        let newEvent = {...eventData};
-        newEvent.n = (newEvent?.n || 0) + 1;
-        STATE.meet.events = [...STATE.meet.events, new Event(newEvent)];
+        let newEvent = new Event({
+            ...eventData,
+            n: (eventData?.n || 0) + 1,
+        });
+        addEventToMeet(newEvent);
+        events = STATE.meet.events; // Trigger reactivity
         console.log(STATE.meet.events, events);
     }
 </script>
@@ -23,7 +22,7 @@
 <div>
     {name}
     <div class = 'events'>
-        {#each events as event}
+        {#each events as event (event.key)}
             <EventEditor {event} />
         {/each}
         <button class = 'sb tool new-event'

@@ -50,13 +50,8 @@
   
       background-color: var(--bg-color-2);
       padding: 0.2rem;
+      z-index: 1000;
     }
-  
-     /* Styling for content INSIDE the default slot */
-     .menu :global(.menu-item) {
-         padding: 8px 16px;
-         cursor: pointer;
-     }
   
      .menu :global(.menu-item:hover) {
          background-color: #f5f5f5;
