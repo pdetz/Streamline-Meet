@@ -1,4 +1,4 @@
-export const appState = $state({
+export const STATE = $state({
   meet: null,
   meetLoading: true,
   selectedEvent: null,
@@ -8,3 +8,5 @@ export const appState = $state({
   user: null,
   isLoggedIn: false,
 });
+
+export const MEET = $state(null);

@@ -17,7 +17,7 @@
       <SelectButtons {options} {selected} {select} text={(option) => option.name} />
     </div>
     <div class="content">
-      {#if !loading}
+      {#if !loading && selected}
         <svelte:component this={selected.component} { ...selected.props} />
       {/if}
       </div>

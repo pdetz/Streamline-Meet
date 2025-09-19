@@ -4,16 +4,16 @@
   import ScrollBox from '@shared/components/ScrollBox.svelte';
   import SelectButtons from '@shared/components/SelectButtons.svelte';
   import MeetProgramEvent from './MeetProgramEvent.svelte';
-  import { appState } from '@src/state/state.svelte.js';
+  import { STATE } from '@src/state/state.svelte.js';
 
   $: if (meet) {
     if(!meet.seeded) meet.seed();
   }
 
-  let selectedEvent = $derived(appState.selectedEvent);
+  let selectedEvent = $derived(STATE.selectedEvent);
   
   function selectEvent(event) {
-    appState.selectedEvent = event;
+    STATE.selectedEvent = event;
   }
 
   function eventButton(event) {

@@ -7,7 +7,7 @@
     import { getEventsFromFile } from "@files/getEventsFromFile";
     import Discrepancies from "./Discrepancies.svelte";
     import File from "@src/shared/data/files/File";
-    import { appState } from '@src/state/state.svelte.js';
+    import { STATE } from '@src/state/state.svelte.js';
 
     const size = { width: "20rem", height: "auto" };
 
@@ -15,7 +15,7 @@
     let discrepancy = false;
     let meetInfos;
 
-    let meet = $derived(appState.meet);
+    let meet = $derived(STATE.meet);
 
     function onFilesSelected(files){
         files.forEach(f => {

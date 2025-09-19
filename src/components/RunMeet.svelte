@@ -1,9 +1,9 @@
 <script>
   import ScrollBox from '@shared/components/ScrollBox.svelte';
   import SelectButtons from '@src/shared/components/SelectButtons.svelte';
-  import { appState } from '@src/state/state.svelte.js';
+  import { STATE } from '@src/state/state.svelte.js';
 
-  let meet = $derived(appState.meet);
+  let meet = $derived(STATE.meet);
   let selectedEvent = $state(meet.events[0]);
 
 </script>

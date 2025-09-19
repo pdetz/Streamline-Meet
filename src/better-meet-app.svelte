@@ -8,8 +8,8 @@
   import RunMeet from '@src/components/RunMeet.svelte';
   import Meet from '@shared/models/Meet';
   import EditEvents from '@src/components/EditEvents/EditEvents.svelte';
-  import { MEET, viewStore } from '@src/stores';
-  import { appState } from '@src/state/state.svelte.js';
+  import { STATE } from '@src/state/state.svelte.js';
+  import { viewStore } from '@src/stores';
 
   let loading = true;
 
@@ -27,9 +27,7 @@
         newMeet = new Meet({name: 'Test Meet', meetType: ''});
       }
 
-      MEET.set(newMeet);
-      
-      appState.meet = newMeet;
+      STATE.meet = newMeet;
 
       options = [
         { name: 'Meet Files', component: MeetFiles },

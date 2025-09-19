@@ -1,10 +1,10 @@
 <script>
     import { MEET_PROPS } from '@models/Meet';
     import TextBox from '@shared/components/TextBox.svelte';
-    import { appState } from '@src/state/state.svelte.js';
+    import { STATE } from '@src/state/state.svelte.js';
     
     
-    let meet = $derived(appState.meet);
+    let meet = $derived(STATE.meet);
 
     const props = ['name', 'abbr', 'date', 'facility', 'divisionName'];
 </script>
