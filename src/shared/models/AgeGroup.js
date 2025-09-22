@@ -5,11 +5,12 @@ class AgeGroup {
     this.eventIndices = props.eventIndices || [];
     this.index = props.index || 0;
 
-    // Use ternary operators directly in the constructor
+    /*
     this.ageString = this.ages[0] === 0
       ? (this.ages[1] === 109 ? "Open" : `${this.ages[1]}&U`)
       : this.ages.join('-');
-    this.name = props.genders[this.gender] + ' ' + this.ageString
+    this.name = props.genders[this.gender] + ' ' + this.ageString */;
+    this.name = ageGroupName(this, props.genders);
   }
 
   contains(ag) {
@@ -61,4 +62,12 @@ class AgeGroup {
   }
 }
 
+function ageGroupName(ageGroup, genderNames) {
+  const ageString = ageGroup.ages[0] === 0
+    ? (ageGroup.ages[1] === 109 ? "Open" : `${ageGroup.ages[1]}&U`)
+    : (ageGroup.ages[1] === 109 ? `${ageGroup.ages[0]}&O` : ageGroup.ages.join('-'));
+  return genderNames[ageGroup.gender] + ' ' + ageString;
+}
+
 export default AgeGroup;
+export { ageGroupName };

@@ -10,6 +10,7 @@ export class EventsTemplate {
 
     // First pass: Build initial ageGroups and event indices
     template.events.forEach((event, eventIndex) => {
+      console.log('processing event', event);
       const stroke = this.strokes[event.stroke];
       let currentAgeGroup;
       if (stroke.relay) {
@@ -47,7 +48,7 @@ export class EventsTemplate {
     });
   }
 
-  addIndividualAG(props) { // Add an age group to the template
+  addIndividualAG(props) { // Creates new Age Group or returns existing one
     let currentAgeGroup = this.ageGroups.find(ag => ag.isEqualTo(props));
     if (!currentAgeGroup) {
       currentAgeGroup = new AgeGroup({ ...props, genders: this.genders });

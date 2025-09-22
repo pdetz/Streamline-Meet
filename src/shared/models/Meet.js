@@ -31,15 +31,17 @@ class Meet {
         seeded: false,
         teamIds: [''],
         teams: [],
+        type: null,
         meetPlan: false, //new MeetPlan({ planningFile: null }, this)
         connectedMeetId: null,
         virtual: false
       }
     );
 
-    this.type = this.meetType ? MCSL_MEETS[this.meetType] : BlankMeet;
-    //this.ageGroups = this.type.ageGroups;
-    this.ageGroups = this.createAgeGroupsForMeet(this.type);
+    if (!this.type) {
+      this.type = this.meetType ? MCSL_MEETS[this.meetType] : BlankMeet;
+    }
+      //this.ageGroups = this.type.ageGroups;
     this.course = this.type.course || this.course;
     this.points = this.type.points;
     this.relayPoints = this.type.relayPoints;
@@ -63,7 +65,7 @@ class Meet {
 
     this.connectedMeet = null;
     // Extend events to include swims
-    this.initializeEvents(this.type.events);
+    this.initializeAgeGroupsAndEvents();
   }
 
   connectAMeet() {
@@ -145,19 +147,6 @@ class Meet {
     return this.ageGroups.find(ag => ag.isEqualTo(ageGroup));
   }
 
-  createAgeGroupsForMeet(meetType) {
-    console.log(meetType);
-    return meetType.ageGroups.map((ageGroup, index) => {
-        // Clone the base ageGroup object
-        const clonedAgeGroup = new AgeGroup({ ...ageGroup, index, genders: meetType.genders});
-        
-        // Add a swimmers Map or array to track swimmers in this age group for this meet
-        clonedAgeGroup.swimmers = []; // Use a Map for O(1) lookup, or an array if you prefer
-
-        return clonedAgeGroup;
-    });
-  }
-
   findSwimmerByKey(swimmer, key = 'key') {
     for (const team of this.teams) {
       const found = team.findSwimmerByKey(swimmer, key);
@@ -166,8 +155,11 @@ class Meet {
     return false; // Return false if no swimmer is found
   }  
 
-  initializeEvents(events) {
-    this.events = events.map((eventData) => {
+  initializeAgeGroupsAndEvents() {
+    this.ageGroups = this.type.ageGroups.map((ageGroup, index) => {
+        return new AgeGroup({ ...ageGroup, index, genders: this.type.genders, swimmers:[]});
+    });
+    this.events = this.type.events.map((eventData) => {
       return new Event({...eventData, meet: this});
     });
     this.relayEvents = this.events.filter(event => event.relay);
