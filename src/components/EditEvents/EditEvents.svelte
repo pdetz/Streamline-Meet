@@ -5,7 +5,7 @@
     import Meet from '@src/shared/models/Meet';
     import { MeetType } from '@src/shared/models/MeetTypes/MeetType';
 
-    let events = $derived([...STATE.meet.type.eventsTemplate.events]);
+    let events = $state([...STATE.meet.type.eventsTemplate.events]);
     let lastEvent = $derived(events[events.length - 1]);
 
     function addEvent(eventData=lastEvent) {
@@ -26,7 +26,7 @@
             [field]: value
         }
         events[index] = updatedEvent;
-        events = [...events];
+        //events = [...events];
     }
 
     function saveEvents() {
