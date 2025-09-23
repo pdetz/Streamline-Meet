@@ -19,6 +19,16 @@
         events = [...events, newEvent];
     }
 
+    function updateEvent(index, field, value) {
+        events[index][field] = value;
+        let updatedEvent = {
+            ...events[index],
+            [field]: value
+        }
+        events[index] = updatedEvent;
+        events = [...events];
+    }
+
     function saveEvents() {
         const newEventsTemplate = new EventsTemplate({
             events: events.map((e, i) => {
@@ -42,8 +52,8 @@
     {STATE.meet.name}
     <button class='sb tool save-events' onclick={() => saveEvents()}>Save Events</button>
     <div class = 'events'>
-        {#each events as event}
-            <EventEditor {event} />
+        {#each events as event, index}
+            <EventEditor {event} {index} {events} {updateEvent} />
         {/each}
         <button class = 'sb tool new-event'
             onclick={() => addEvent()}>+ New Event

@@ -1,5 +1,5 @@
 <script>
-    let { event } = $props();
+    let { event, index, events, updateEvent } = $props();
     import { STATE } from '@src/state/state.svelte.js';
     import Tile from '@src/shared/components/Tile.svelte';
     import { ageGroupName } from '@src/shared/models/AgeGroup';
@@ -7,23 +7,29 @@
 
     let strokes = $derived(STATE.meet.type.strokes.slice(1));
 
-    let currentEvent = $state(event);
+    let currentEvent = $derived(event);
+    let selected = $derived(currentEvent.selected || false);
 
-    function updateEvent(field, value) {
-        event[field] = value;
-        currentEvent = event;
+    function updateEvents(field, value) {
+        if (!event.selected || field === 'selected') {
+            updateEvent(index, field, value);
+            return;
+        }
+        events.forEach((e, i) => {
+            if (e.selected) updateEvent(i, field, value);
+        });
     }
 
     function updateMinAge(n) {
-        if (n < currentEvent.ages[1]) return updateEvent('ages', [n, currentEvent.ages[1]]);
-        return updateEvent('ages', [n, n]);
+        if (n < currentEvent.ages[1]) return updateEvents('ages', [n, currentEvent.ages[1]]);
+        return updateEvents('ages', [n, n]);
     }
     
     function updateMaxAge(n) {
-        if (n < currentEvent.ages[0]) return updateEvent('ages', [n, n]);
-        if (n < 19) return updateEvent('ages', [currentEvent.ages[0], n]);
-        if (n < currentEvent.ages[1]) return updateEvent('ages', [currentEvent.ages[0], 18]);
-        return updateEvent('ages', [currentEvent.ages[0], 109]);
+        if (n < currentEvent.ages[0]) return updateEvents('ages', [n, n]);
+        if (n < 19) return updateEvents('ages', [currentEvent.ages[0], n]);
+        if (n < currentEvent.ages[1]) return updateEvents('ages', [currentEvent.ages[0], 18]);
+        return updateEvents('ages', [currentEvent.ages[0], 109]);
     }
 
     function showAge(n) {
@@ -37,19 +43,25 @@
     }
 </script>
 
+
+<div class={selected ? 'selected' : ''}>
 <Tile size={{ width: "100%", height: "auto" }}>
     <div class='title' slot='title'>
+        <button class='checkbox'
+            onclick={() => updateEvents('selected', !currentEvent.selected)}>
+            &#10003;
+        </button>
         {eventName(currentEvent)}
     </div>
     <div class='controls'>
         <div class='distance'>
             <NumberPicker n={currentEvent.distance} text="Distance"
                 min={25} step={25} max={1000}
-                updateN={(value) => updateEvent('distance', value)} />
+                updateN={(value) => updateEvents('distance', value)} />
         </div>
         <div class='strokes'>
             {#each strokes as stroke}
-                <button onclick={() => updateEvent('stroke', stroke)}
+                <button onclick={() => updateEvents('stroke', stroke)}
                     class={'sb stroke ' + stroke.abbr + (currentEvent.stroke.abbr === stroke.abbr ? ' selected' : '')}>
                     {stroke.abbr}
                 </button>
@@ -57,7 +69,7 @@
         </div>
         <div class='genders'>
             {#each Object.keys(STATE.meet.type.genders) as genderKey}
-                <button onclick={() => updateEvent('gender', genderKey)}
+                <button onclick={() => updateEvents('gender', genderKey)}
                     class={'sb gender ' + (genderKey === currentEvent.gender ? ' selected' : '')}>
                     {STATE.meet.type.genders[genderKey]}
                 </button>
@@ -74,8 +86,14 @@
                 showN={(n) => showAge(n)} />
     </div>
 </Tile>
+</div>
 
 <style>
+    div.selected {
+        border: 2px solid var(--accent-color);
+        border-radius: 0.3rem;
+        box-shadow: 0 0 10px var(--accent-color);
+    }
     div.title {
         text-align: left;
     }

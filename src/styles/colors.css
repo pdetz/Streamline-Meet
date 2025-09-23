@@ -19,6 +19,7 @@
     --sel-color-2: #888;
     --sel-text-color: #000;
     --team-color: #6b3;
+    --accent-color: #04f;
 }
 @keyframes borderFlash {
     0% { border-color: #fff; /* Or your button's default border color */ }

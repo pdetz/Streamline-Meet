@@ -63,9 +63,14 @@ class AgeGroup {
 }
 
 function ageGroupName(ageGroup, genderNames) {
-  const ageString = ageGroup.ages[0] === 0
-    ? (ageGroup.ages[1] === 109 ? "Open" : `${ageGroup.ages[1]}&U`)
-    : (ageGroup.ages[1] === 109 ? `${ageGroup.ages[0]}&O` : ageGroup.ages.join('-'));
+  let ageString = '';
+  if (ageGroup.ages[0] === ageGroup.ages[1]) {
+    ageString = ageGroup.ages[0] + ' y.o.'; 
+  } else {
+    ageString = ageGroup.ages[0] === 0
+      ? (ageGroup.ages[1] === 109 ? "Open" : `${ageGroup.ages[1]}&U`)
+      : (ageGroup.ages[1] === 109 ? `${ageGroup.ages[0]}&O` : ageGroup.ages.join('-'));
+  }
   return genderNames[ageGroup.gender] + ' ' + ageString;
 }
 
