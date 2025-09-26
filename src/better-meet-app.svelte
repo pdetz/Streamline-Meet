@@ -10,31 +10,38 @@
   import EditEvents from '@src/components/EditEvents/EditEvents.svelte';
   import { STATE } from '@src/state/state.svelte.js';
   import { viewStore } from '@src/stores';
+  import TestComponent from './components/TestComponent.svelte';
 
-  let loading = true;
+  let loading = $state(true);
 
-  let options;
+  let options = [
+        { name: 'Meet Files', component: MeetFiles },
+        { name: 'Meet Settings', component: MeetSettings },
+        { name: 'Run Meet', component: RunMeet },
+        { name: 'Edit Events', component: EditEvents },
+        { name: 'Test', component: TestComponent } // Temporary test view
+      ];
 
   onMount(async () => {
     try {
       const meetId = new URLSearchParams(window.location.search).get('meet');
       let newMeet;
-      
       if (meetId) {
         initializeParse(); // Ensure Parse is initialized
         newMeet = await loadParseObjectById('New Meet', meetId);
+        //STATE.meet = newMeet;
       } else {
-        newMeet = new Meet({name: 'Test Meet', meetType: ''});
+        console.warn("No meet ID provided in URL. Using default meet.");
+        newMeet = new Meet({name: 'Default Meet', meetType: ''});
       }
-
       STATE.meet = newMeet;
+      STATE.newEventsTemplate = {
+        events: STATE.meet.type.eventsTemplate.events.map(e => ({...e}))
+      };
 
-      options = [
-        { name: 'Meet Files', component: MeetFiles },
-        { name: 'Meet Settings', component: MeetSettings },
-        { name: 'Run Meet', component: RunMeet },
-        { name: 'Edit Events', component: EditEvents }
-      ];
+      //TEST.meet = newMeet; // For testing purposes
+      console.log('meet assigned', STATE.meet);
+
       document.title = newMeet.name || "Better Meet App";
     } catch (error) {
       console.error("Error during initialization or loading meet:", error);

@@ -1,5 +1,6 @@
 import { STROKES, GENDERS } from '@models/LeagueData';
 import AgeGroup from '@models/AgeGroup';
+import { constructFromObject } from 'sib-api-v3-sdk/src/ApiClient';
 
 export class EventsTemplate {
   constructor(template) {
@@ -10,7 +11,6 @@ export class EventsTemplate {
 
     // First pass: Build initial ageGroups and event indices
     template.events.forEach((event, eventIndex) => {
-      console.log('processing event', event);
       const stroke = this.strokes[event.stroke];
       let currentAgeGroup;
       if (stroke.relay) {

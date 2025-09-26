@@ -26,6 +26,7 @@ class MeetType {
         swimUps: 'Unlimited'
     });
     assignProperties(this, meetType.eventsTemplate);
+    console.log("new meet type created", meetType.eventsTemplate);
   }
 }
 

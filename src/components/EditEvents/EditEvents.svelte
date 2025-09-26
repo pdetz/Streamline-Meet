@@ -5,38 +5,29 @@
     import Meet from '@src/shared/models/Meet';
     import { MeetType } from '@src/shared/models/MeetTypes/MeetType';
 
-    let events = $state([...STATE.meet.type.eventsTemplate.events]);
+    let events = $derived(STATE.newEventsTemplate.events || []);
     let lastEvent = $derived(events[events.length - 1]);
 
     function addEvent(eventData=lastEvent) {
         console.log("Adding event", eventData);
-        let newEvent = {
+        const newEvent = {
             ...eventData,
             ages: [...eventData?.ages] || [0, 109],
-            n: (eventData?.n || 0) + 1,
+            n: events.length + 1,
+            selected: false
         };
-        //STATE.meet.type.eventsTemplate.events.push(newEvent);
-        events = [...events, newEvent];
+        //STATE.newEventsTemplate.events.push(newEvent);
+        events.push(newEvent);
     }
 
     function updateEvent(index, field, value) {
         events[index][field] = value;
-        let updatedEvent = {
-            ...events[index],
-            [field]: value
-        }
-        events[index] = updatedEvent;
-        //events = [...events];
     }
 
     function saveEvents() {
         const newEventsTemplate = new EventsTemplate({
-            events: events.map((e, i) => {
-                return {
-                    ...e, 
-                    stroke: e.stroke.sd3
-                };
-            })
+            ...STATE.newEventsTemplate,
+            events: events.map(e => ({...e, stroke: e.stroke.sd3}))
         });
         const newMeetType = new MeetType({
             ...STATE.meet.type,
@@ -44,13 +35,43 @@
         });
         STATE.meet.type = newMeetType;
         STATE.meet.initializeAgeGroupsAndEvents();
-        console.log("Saved events to meet", STATE.meet.events);
+        console.log("Events saved to meet", STATE.meet.events);
+    }
+    function duplicateSelected() {
+        const selectedEvents = events.filter(e => e.selected);
+        if (selectedEvents.length === 0) return;
+        selectedEvents.forEach(event => {
+            const newEvent = {
+                ...event,
+                n: events.length + 1,
+                selected: true
+            };
+            event.selected = false;
+            events.push(newEvent);
+        });
+    }
+    function duplicateInterlaced() {
+        const selectedEvents = events.filter(e => e.selected);
+        if (selectedEvents.length === 0) return;
+        let insertIndex = events.findIndex(e => e.selected) + 1;
+        selectedEvents.forEach(event => {
+            const newEvent = {
+                ...event,
+                n: events.length + 1,
+                selected: true
+            };
+            event.selected = false;
+            events.splice(insertIndex, 0, newEvent);
+            insertIndex++;
+        });
     }
 </script>
 
 <div>
     {STATE.meet.name}
-    <button class='sb tool save-events' onclick={() => saveEvents()}>Save Events</button>
+    <button class='sb tool save-events' onclick={saveEvents}>Save Events</button>
+    <button class = 'sb tool' onclick={duplicateSelected}>Duplicate Selected</button>
+    <button class = 'sb tool' onclick={duplicateInterlaced}>Duplicate Interlaced</button>
     <div class = 'events'>
         {#each events as event, index}
             <EventEditor {event} {index} {events} {updateEvent} />
