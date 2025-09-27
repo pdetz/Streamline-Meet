@@ -53,16 +53,17 @@
     function duplicateInterlaced() {
         const selectedEvents = events.filter(e => e.selected);
         if (selectedEvents.length === 0) return;
-        let insertIndex = events.findIndex(e => e.selected) + 1;
         selectedEvents.forEach(event => {
             const newEvent = {
                 ...event,
-                n: events.length + 1,
+                n: event.n + 1,
                 selected: true
             };
+            for (let i = event.n; i < events.length; i++) {
+                events[i].n += 1;
+            }
             event.selected = false;
-            events.splice(insertIndex, 0, newEvent);
-            insertIndex++;
+            events.splice(event.n, 0, newEvent);
         });
     }
 </script>
